@@ -108,17 +108,6 @@ void compound(void)
 	GLfloat shininess2[] = { 50 };
 	matprop(ambient2, diffuse2, specular2, shininess2);
 
-	//sad
-	glPushMatrix();
-	glBindTexture(GL_TEXTURE_2D, _textureGrass);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTranslated(-5, 0.07, -7);
-	glScaled(4, 3, 1.7);
-	wall(0.08);
-	glPopMatrix();
-	glFlush();
-
 }
 
 
@@ -522,7 +511,7 @@ void chair(float cblen, float cbwid, float cbthk, float cllen, float clwid)
 	glPopMatrix();
 	glPopMatrix();
 }
-void meja()
+void konfrensi()
 {
 
 
@@ -809,21 +798,19 @@ void house(void)
 	glRotated(-90.0, 1, 0, 0);
 	wall(0.08);
 	glPopMatrix();
-	//wall above main door
 	glPushMatrix();
 	glTranslated(-0.02, 3, 4);
 	glScaled(.13, .27, 1);
 	glRotated(-90.0, 1, 0, 0);
 	wall(0.08);
 	glPopMatrix();
-	//wall right to the main door
 	glPushMatrix();
 	glTranslated(.48, 0, 4);
 	glScaled(.68, 1, 1);
 	glRotated(-90.0, 1, 0, 0);
 	wall(0.08);
 	glPopMatrix();
-	//wall right to the window
+	//wall right to the door
 	glPushMatrix();
 	glTranslated(4.8, 0, 4);
 	glScaled(.3, 1, 1);
@@ -831,14 +818,13 @@ void house(void)
 	wall(0.08);
 	glPopMatrix();
 
-	//wall above the window
+	//wall above the door
 	glPushMatrix();
 	glTranslated(3.2, 3.03, 4);
 	glScaled(.4, .25, 1);
 	glRotated(-90.0, 1, 0, 0);
 	wall(0.08);
 	glPopMatrix();
-	//main door
 	glPushMatrix();
 	glTranslated(0, 0, 4);
 	glRotated(maino, 0, 1, 0);
@@ -857,15 +843,55 @@ void house(void)
 	glPushMatrix();
 	glTranslated(-5, 0, -.04);
 	glScaled(4, 24, 4);
-	glColor3f(0, 0, 0.5);
 	glRotated(-90.0, 1, 0, 0);
 	wall(0.08);
-
+	glPopMatrix();
+	//lefttwr
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, _textureBrick);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glPushMatrix();
+	glTranslated(-5, 0, -8);
+	glScaled(4, 24, 2);
+	glRotated(90.0, 0, 0, 1);
+	wall(0.08);
+	glPopMatrix();
+	//righttwr
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, _textureBrick);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glPushMatrix();
+	glTranslated(11, 0, -8);
+	glScaled(4, 24, 2);
+	glRotated(90.0, 0, 0, 1);
+	wall(0.08);
+	glPopMatrix();
+	//backtowr
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, _textureBrick);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glPushMatrix();
+	glTranslated(-5, 0, -8);
+	glScaled(4, 24, 4);
+	glRotated(-90.0, 1, 0, 0);
+	wall(0.08);
+	glPopMatrix();
+	//toptwr
+	glPushMatrix();
+	glBindTexture(GL_TEXTURE_2D, _textureBrick);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTranslated(-5, 94, -8);
+	glScaled(4, 3, 2);
+	wall(0.08);
 	glPopMatrix();
 	room();
 	solar();
 	steps();
-	meja();
+	konfrensi();
 	fan();
 
 	GLfloat	ambient[] = { 1,0.5,.5,1 };
@@ -1002,16 +1028,7 @@ void Keyboard(unsigned char key, int x, int y)
 		look[1] = 2;
 		look[2] = 3;
 		break;
-		//back view
-	case 'k':
-	case 'K':
-		view[0] = 1;
-		view[1] = 6;
-		view[2] = -7;
-		look[0] = 2;
-		look[1] = 4;
-		look[2] = 2;
-		break;
+	
 
 	}
 
