@@ -3,7 +3,7 @@
 
 
 float _angle = 0.0;
-GLuint _textureBrick, _textureDoor, _textureGrass, _textureRoof, _textureWindow, _textureSky;
+GLuint _textureBrick, _textureGrass;
 double w = 1280, h = 720;
 double view[3] = { 2,2,12.9 };
 double look[3] = { 2,2,2 };
@@ -54,6 +54,40 @@ void wall(double thickness)
 	glTranslated(2, .5 * thickness, 2);
 	glScaled(4.0, thickness, 4.0);
 	glutSolidCube(1.0);
+	glPopMatrix();
+}
+
+void pohon(void) {
+	//batang
+	GLUquadricObj* pObj;
+	pObj = gluNewQuadric();
+	gluQuadricNormals(pObj, GLU_SMOOTH);
+
+	glPushMatrix();
+	glColor3f(104, 70, 14);
+	glRotatef(270, 1, 0, 0);
+	gluCylinder(pObj, 4, 0.7, 30, 25, 25);
+	glPopMatrix();
+}
+
+//ranting
+void ranting(void) {
+	GLUquadricObj* pObj;
+	pObj = gluNewQuadric();
+	gluQuadricNormals(pObj, GLU_SMOOTH);
+	glPushMatrix();
+	glColor3f(104, 70, 14);
+	glTranslatef(0, 27, 0);
+	glRotatef(330, 1, 0, 0);
+	gluCylinder(pObj, 0.6, 0.1, 15, 25, 25);
+	glPopMatrix();
+
+	//daun
+	glPushMatrix();
+	glColor3f(18, 118, 13);
+	glScaled(5, 5, 5);
+	glTranslatef(0, 7, 3);
+	glutSolidDodecahedron();
 	glPopMatrix();
 }
 
@@ -893,6 +927,26 @@ void house(void)
 	steps();
 	konfrensi();
 	fan();
+	//pohon1
+	glPushMatrix();
+	glTranslatef(-80, 0, -120);
+	glRotatef(90, 0, 1, 0);
+	pohon();
+	ranting();
+	glPushMatrix();
+	glScalef(1.5, 1.5, 1.5);
+	glTranslatef(0, 25, 25);
+	glRotatef(250, 1, 0, 0);
+	ranting();
+	glPopMatrix();
+
+	glPushMatrix();
+	glScalef(1.8, 1.8, 1.8);
+	glTranslatef(0, -6, 21.5);
+	glRotatef(-55, 1, 0, 0);
+	ranting();
+	glPopMatrix();
+	glPopMatrix();
 
 	GLfloat	ambient[] = { 1,0.5,.5,1 };
 	GLfloat specular[] = { 1,1,1,1 };
