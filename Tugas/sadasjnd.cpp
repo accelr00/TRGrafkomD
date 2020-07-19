@@ -1085,7 +1085,7 @@ int main(int argc, char** argv)
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(w, h);
 	glutInitWindowPosition(0, 0);
-	glutCreateWindow("TR GRAFKOM D - 672018015 PALA KAU");
+	glutCreateWindow("TR GRAFKOM D - 672018015");
 	myinit();
 	glutDisplayFunc(display);
 	glutKeyboardFunc(Keyboard);
