@@ -110,13 +110,14 @@ void compound(void)
 
 	//sad
 	glPushMatrix();
-	glTranslated(-4,-0.05,-1);
-	glScaled(3,3,1.7);
+	glBindTexture(GL_TEXTURE_2D, _textureGrass);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTranslated(-5, 0.07, -7);
+	glScaled(4, 3, 1.7);
 	wall(0.08);
 	glPopMatrix();
-
-
-    glFlush();
+	glFlush();
 
 }
 
@@ -262,11 +263,11 @@ void cleg(float cllen, float clwid)
 
 void steps(void)
 {
-    int i;
-	GLfloat	ambient1[]={1,0,1,1};
-	GLfloat specular1[]={1,1,1,1};
-	GLfloat diffuse1[]={0.5,0.5,0.5,1};
-	GLfloat mat_shininess[]={50};
+	int i;
+	GLfloat	ambient1[] = { 1,0,5,1 };
+	GLfloat specular1[] = { 1,1,1,1 };
+	GLfloat diffuse1[] = { 0.5,0.5,0.5,1 };
+	GLfloat mat_shininess[] = { 50 };
 
 	matprop(ambient1, diffuse1, specular1, mat_shininess);
 	glPushMatrix();
@@ -300,14 +301,160 @@ void steps(void)
 	glutSolidCube(1);
 	glPopMatrix();
 }
+void fanwing(float winglen)
+{
+	glPushMatrix();
 
-void sleg(float len,float thk)
+	glRotated(90, 1, 0, 0);
+	glRotated(90, 0, 1, 0);
+	glScaled(1, 15, 1);
+	gluCylinder(Cylinder, .01, .01, 1, 4, 1);
+	glPopMatrix();
+}
+void fanbottom()
+{
+	glPushMatrix();
+
+	glTranslated(1, 3.2, 1);
+	glPushMatrix();
+	glRotated(90, 1, 0, 0);
+	gluCylinder(Cylinder, .2, .2, .05, 128, 16);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(0, 0.00025, 0);
+	glRotated(90, 1, 0, 0);
+	gluDisk(Disk, 0, .2, 32, 16);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(0, -.05, 0);
+	glRotated(90, 1, 0, 0);
+	gluCylinder(Cylinder, .2, .15, .1, 128, 16);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(0, -.1, 0);
+	glRotated(90, 1, 0, 0);
+	gluDisk(Disk, 0, .15, 32, 16);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(0.1, 0.0, 0);
+	fanwing(.6);
+	glPopMatrix();
+	glPushMatrix();
+	glRotated(120, 0, 1, 0);
+	glTranslated(.1, 0, 0);
+	fanwing(.6);
+	glPopMatrix();
+	glPushMatrix();
+	glRotated(240, 0, 1, 0);
+	glTranslated(0.1, 0.0, 0);
+	fanwing(.6);
+	glPopMatrix();
+	glPopMatrix();
+}
+void fan(void)
+{
+	glPushMatrix();
+	glTranslated(2.5, 1.9, 0);
+	glScaled(.5, .5, .5);
+	GLfloat mat_ambient[] = { .5,0,0,1 };
+	GLfloat mat_specular[] = { 0,1,1,0 };
+	GLfloat mat_diffuse[] = { .8,1,.8,1 };
+	GLfloat mat_shininess[] = { 50 };
+
+
+	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+
+
+	if (flag == -1)
+	{
+		glPushMatrix();
+		fanbottom();
+		glPopMatrix();
+	}
+	else
+
+	{
+
+		angle += speed;
+		glPushMatrix();
+		glTranslated(1, 0, 1);
+		glRotated(angle, 0, 1, 0);
+		glTranslated(-1, 0, -1);
+		fanbottom();
+		glPopMatrix();
+	}
+
+	glPushMatrix();
+	glTranslatef(1, 3.3, 1);
+	glRotated(-90, 1, 0, 0);
+	gluCylinder(Cylinder, .1, 0.005, .25, 16, 16);
+	glPopMatrix();
+	glPushMatrix();
+
+	glTranslatef(1, 4, 1);
+	glRotated(90, 1, 0, 0);
+	gluCylinder(Cylinder, .006, 0.006, .6, 16, 16);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(1, 3.96, 1);
+	glRotated(90, 1, 0, 0);
+	gluCylinder(Cylinder, .1, 0.005, .25, 16, 16);
+	glPopMatrix();
+	glPopMatrix();
+	if (flag == 1)
+		glutPostRedisplay();
+}
+void tableg(float llen, float lthk)
+{
+	glPushMatrix();
+	glRotated(-90, 1, 0, 0);
+	gluCylinder(Cylinder, lthk, lthk, llen, 32, 32);
+	glPopMatrix();
+}
+void sleg(float len, float thk)
+{
+	glScaled(thk, len, thk);
+	glutSolidCube(1);
+
+}
+void table(float tabwid, float tablen, float tabthk, float llen, float lthk)
 {
 	glPushMatrix();
 	glPushMatrix();
 	glTranslated(0, llen, 0);
 	glScaled(tabwid, tabthk, tablen);
 	glutSolidCube(1);
+	glPopMatrix();
+	float dist1 = .95 * tablen / 2 - lthk / 2;
+	float dist2 = .95 * tabwid / 2 - lthk / 2;
+	// front right leg
+	glPushMatrix();
+	glTranslated(dist2, 0, dist1);
+	tableg(llen, lthk);
+	glPopMatrix();
+	//back right leg
+	glPushMatrix();
+	glTranslated(dist2, 0, -dist1);
+	tableg(llen, lthk);
+	glPopMatrix();
+	//back left leg
+	glPushMatrix();
+	glTranslated(-dist2, 0, -dist1);
+	tableg(llen, lthk);
+	glPopMatrix();
+	//front left leg
+	glPushMatrix();
+	glTranslated(-dist2, 0, dist1);
+	tableg(llen, lthk);
+	glPopMatrix();
 
 	glPopMatrix();
 }
@@ -683,13 +830,7 @@ void house(void)
 	glRotated(-90.0, 1, 0, 0);
 	wall(0.08);
 	glPopMatrix();
-	//wall below the window
-	glPushMatrix();
-	glTranslated(3.2,0,4);
-	glScaled(.4,.25,1);
-	glRotated(-90.0,1,0,0);
-	wall(0.08);
-	glPopMatrix();
+
 	//wall above the window
 	glPushMatrix();
 	glTranslated(3.2, 3.03, 4);
@@ -798,10 +939,10 @@ void Keyboard(unsigned char key, int x, int y)
 		//to run and stop the fan
 	case 'S':
 	case 's':
-				flag*=-1;
-				glutPostRedisplay();
-	break;
-	//to move the look position along +ve x axis
+		flag *= -1;
+		glutPostRedisplay();
+		break;
+		//to move the look position along +ve x axis
 	case 'r':
 	case 'R':
 		look[0] += .1;
@@ -829,49 +970,9 @@ void Keyboard(unsigned char key, int x, int y)
 		//to move the look position along -ve z axis
 	case 'B':
 	case 'b':
-				look[2]-=.1;
-	break;
-	//to open and close the main door
-	case 'q':
-	case 'Q':
-				if(maino==0)
-				  maino=85;
-				else
-					maino=0;
-	break;
-	//to open and close the below room door
-	case 'O':
-	case 'o':
-				if(romo==0)
-				  romo=75;
-				else
-					romo=0;
-	break;
-	//to open and close the above room door
-	case 'p':
-	case 'P':
-				if(tro==0)
-				  tro=70;
-				else
-					tro=0;
-	break;
-	//to open and close the main gate
-	case 'g':
-	case 'G':
-				if(mgo==0)
-				  mgo=1;
-				else
-					mgo=0;
-	break;
-	//to open and close the sub gate
-	case 'h':
-	case 'H':
-				if(sgo==0)
-				  sgo=50;
-				else
-					sgo=0;
-	break;
-	//inside view
+		look[2] -= .1;
+		break;
+		//inside view
 	case 'i':
 	case 'I':
 		view[0] = 2.8;
@@ -980,22 +1081,22 @@ void house_view(int m)
 
 int main(int argc, char** argv)
 {
-	glutInit(&argc,argv);//to initialize the glut library
-	glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB|GLUT_DEPTH);
-	glutInitWindowSize(w,h);
-	glutInitWindowPosition(0,0);
-	glutCreateWindow("er123");
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitWindowSize(w, h);
+	glutInitWindowPosition(0, 0);
+	glutCreateWindow("TR GRAFKOM D - 672018015 22222");
 	myinit();
 	glutDisplayFunc(display);
 	glutKeyboardFunc(Keyboard);
 	glutSpecialFunc(mySpecialKeyFunc);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	glShadeModel(GL_SMOOTH);//smooth shaded
-	glEnable(GL_DEPTH_TEST);//to remove hidden surface
-	glEnable(GL_NORMALIZE);//to make normal vector to unit vector
-	glClearColor(0,.3,.8,0);
-	glViewport(0,0,w,h);
+	glShadeModel(GL_SMOOTH);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_NORMALIZE);
+	glClearColor(0, .3, .8, 0);
+	glViewport(0, 0, w, h);
 	glutMainLoop();
 	return 0;
 }
