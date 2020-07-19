@@ -1097,6 +1097,6 @@ int main(int argc, char** argv)
 	glEnable(GL_NORMALIZE);
 	glClearColor(0, .3, .8, 0);
 	glViewport(0, 0, w, h);
-	glutMainLoop();
+	glutMainLoop(); //182u389j192u3n91n2319u3n19
 	return 0;
 }
