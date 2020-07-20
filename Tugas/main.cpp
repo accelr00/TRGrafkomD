@@ -9,7 +9,7 @@ double view[3] = { 2,2,12.9 };
 double look[3] = { 2,2,2 };
 int flag = -1;
 void steps(void);
-void window(void);
+void pintu(void);
 
 double angle = 0, speed = 5, maino = 0, romo = 0, tro = 0, mgo = 0, sgo = 0;
 GLUquadricObj* Cylinder;
@@ -59,6 +59,13 @@ void wall(double thickness)
 
 void pohon(void) {
 	//batang
+	GLfloat	ambient1[] = { .1,.1,.1,1 };
+	GLfloat specular1[] = { 1,1,1,1 };
+	GLfloat diffuse1[] = { 1,1,1,1 };
+	GLfloat mat_shininess[] = { 50 };
+
+	matprop(ambient1, diffuse1, specular1, mat_shininess);
+
 	GLUquadricObj* pObj;
 	pObj = gluNewQuadric();
 	gluQuadricNormals(pObj, GLU_SMOOTH);
@@ -695,7 +702,7 @@ void solar(void)
 	glPopMatrix();
 }
 
-void window(void)
+void pintu(void)
 {
 	int i;
 	GLfloat lightIntensity[] = { .7,.7,.7,1 };
@@ -707,25 +714,25 @@ void window(void)
 
 	glPushMatrix();
 	glTranslated(3.185, 1, 3.95);
-	//left edge of window
+	
 	glPushMatrix();
 	glTranslated(.02, 1, .02);
 	glScaled(.04, 2.2, .04);
 	glutSolidCube(1);
 	glPopMatrix();
-	//right edge
+	
 	glPushMatrix();
 	glTranslated(1.6 + .02, 1, 0.02);
 	glScaled(.04, 2.2, .04);
 	glutSolidCube(1);
 	glPopMatrix();
-	//top edge
+	
 	glPushMatrix();
 	glTranslated(.9, 2 + .02, 0.02);
 	glScaled(1.8, .04, .04);
 	glutSolidCube(1);
 	glPopMatrix();
-	//bottom edge
+	
 	glPushMatrix();
 	glTranslated(.8, .02, 0.02);
 	glScaled(1.8, .04, .04);
@@ -927,7 +934,9 @@ void house(void)
 	steps();
 	konfrensi();
 	fan();
-	//pohon1
+	pintu();
+
+	//pohon 2
 	glPushMatrix();
 	glTranslatef(-80, 0, -120);
 	glRotatef(90, 0, 1, 0);
@@ -947,11 +956,73 @@ void house(void)
 	ranting();
 	glPopMatrix();
 	glPopMatrix();
+	//pohon1
+	glPushMatrix();
+	glTranslatef(-30, 0, -130);
+	glRotatef(90, 0, 1, 0);
+	pohon();
+	ranting();
+	glPushMatrix();
+	glScalef(1.5, 1.5, 1.5);
+	glTranslatef(0, 25, 25);
+	glRotatef(250, 1, 0, 0);
+	ranting();
+	glPopMatrix();
 
-	GLfloat	ambient[] = { 1,0.5,.5,1 };
-	GLfloat specular[] = { 1,1,1,1 };
-	GLfloat diffuse[] = { 1,.5,.5,1 };
-	matprop(ambient, diffuse, specular, mat_shininess);
+	glPushMatrix();
+	glScalef(1.8, 1.8, 1.8);
+	glTranslatef(0, -6, 21.5);
+	glRotatef(-55, 1, 0, 0);
+	ranting();
+	glPopMatrix();
+	glPopMatrix();
+
+
+	//pohon 3
+	glPushMatrix();
+	glTranslatef(-135, 0, -90);
+	glRotatef(90, 0, 1, 0);
+	pohon();
+	ranting();
+	glPushMatrix();
+	glScalef(1.5, 1.5, 1.5);
+	glTranslatef(0, 25, 25);
+	glRotatef(250, 1, 0, 0);
+	ranting();
+	glPopMatrix();
+
+	glPushMatrix();
+	glScalef(1.8, 1.8, 1.8);
+	glTranslatef(0, -6, 21.5);
+	glRotatef(-55, 1, 0, 0);
+	ranting();
+	glPopMatrix();
+	glPopMatrix();
+
+
+	//pohon4
+	glPushMatrix();
+	glTranslatef(-160, 0, -60);
+	glRotatef(90, 0, 1, 0);
+	pohon();
+	ranting();
+	glPushMatrix();
+	glScalef(1.5, 1.5, 1.5);
+	glTranslatef(0, 25, 25);
+	glRotatef(250, 1, 0, 0);
+	ranting();
+	glPopMatrix();
+
+	glPushMatrix();
+	glScalef(1.8, 1.8, 1.8);
+	glTranslatef(0, -6, 21.5);
+	glRotatef(-55, 1, 0, 0);
+	ranting();
+	glPopMatrix();
+	glPopMatrix();
+	glPopMatrix();
+
+
 
 
 
