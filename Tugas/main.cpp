@@ -1,8 +1,12 @@
 #include<GL/glut.h>
 #include "imageloader.h"
 
-
+float xrot = 0.0f;
+float yrot = 0.0f;
+float xdiff = 0.0f;
+float ydiff = 0.0f;
 float _angle = 0.0;
+bool mouseDown = false;
 GLuint _textureBrick, _textureGrass;
 double w = 1280, h = 720;
 double view[3] = { 2,2,12.9 };
@@ -17,6 +21,42 @@ GLUquadricObj* Disk;
 
 GLfloat angle1;
 
+
+void idle()
+{
+
+	if (!mouseDown)
+	{
+		xrot += 0.1f;
+		yrot += 0.2f;
+	}
+	glutPostRedisplay();
+}
+
+void mouse(int button, int state, int x, int y)
+{
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+	{
+		mouseDown = true;
+		xdiff = x - yrot;
+		ydiff = -y + xrot;
+	}
+	else
+		mouseDown = false;
+}
+
+void mouseMotion(int x, int y)
+{
+
+	if (mouseDown)
+	{
+		yrot = x - xdiff;
+		xrot = y + ydiff;
+
+		glutPostRedisplay();
+
+	}
+}
 //initialisation
 void myinit(void)
 {
@@ -1179,45 +1219,6 @@ void mySpecialKeyFunc(int key, int x, int y)
 
 
 
-void house_view(int m)
-{
-	switch (m)
-	{
-	case 1:
-		view[0] = 2.8;
-		view[1] = 2;
-		view[2] = 4.8;
-		look[0] = 2.8;
-		look[1] = 2;
-		look[2] = 1;
-		break;
-	case 2:
-		view[0] = 6;
-		view[1] = 12;
-		view[2] = 10;
-		look[0] = 2;
-		look[1] = 8;
-		look[2] = 2;
-		break;
-	case 3:
-		view[0] = 2;
-		view[1] = 2;
-		view[2] = 12.9;
-		look[0] = 3;
-		look[1] = 2;
-		look[2] = 3;
-		break;
-	case 4:
-		view[0] = 1;
-		view[1] = 6;
-		view[2] = -7;
-		look[0] = 2;
-		look[1] = 4;
-		look[2] = 2;
-		break;
-	}
-}
-
 
 
 
@@ -1228,6 +1229,7 @@ int main(int argc, char** argv)
 	glutInitWindowSize(w, h);
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow("TR GRAFKOM D - 672018015");
+	idle();
 	myinit();
 	glutDisplayFunc(display);
 	glutKeyboardFunc(Keyboard);
